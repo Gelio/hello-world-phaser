@@ -1,21 +1,23 @@
 /// <reference path="../node_modules/phaser/typescript/phaser.d.ts"/>
+import { TitleState } from './states/TitleState';
+import { GameRunningState } from './states/GameRunningState';
 
 class SimpleGame {
     game: Phaser.Game;
 
     constructor() {
-        this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content', { create: this.create });
-    }
+        this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content');
 
-    create() {
-        var text = "Hello World!";
-        var style = { font: "65px Arial", fill: "#ff0000", align: "center" };
-        this.game.add.text(0, 0, text, style);
-    }
+        this.game.state.add('TitleState', TitleState, false);
+        this.game.state.add('GameRunningState', GameRunningState, false);
 
+        //this.game.state.start('TitleState', true, true);
+        this.game.state.start('GameRunningState', true, true);
+
+    }
 }
+
 
 window.onload = () => {
     var game = new SimpleGame();
 };
-
